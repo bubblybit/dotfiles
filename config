@@ -145,8 +145,6 @@ bindsym $mod+r exec --no-startup-id rofi -show combi
 # start rofi small
 bindsym $mod+F12 exec --no-startup-id rofi -show run -font "Noto Sans 13"
 
-
-
 #####################################################################################################################
 #################                          how to exit, logoff, suspend, ...                        #################
 #####################################################################################################################
@@ -356,7 +354,7 @@ font pango:Noto Mono Regular 13
 # you can find the class with the program xprop
 
 # Workspace 1 browser related
-assign [class="Spotify|spotify"]                                                    → 1
+#assign [class="Spotify|spotify"]                                                    → 1
 #assign [class="Chromium|Google-chrome"]                                             → 1
 
 # Workspace 2 text editor related
@@ -378,12 +376,11 @@ assign [class="Spotify|spotify"]                                                
 assign [class="Thunderbird|thunderbird"]                                                    → 6
 
 # Workspace 7 virtual machines and settings
-assign [class="Firefox|Vivaldi-stable|Vivaldi-snapshot|Opera"]                      → 7
+assign [class="obsidian|Obsidian"]                      → 7
 
 # Workspace 8 file managers
-#assign [class="Nemo|Thunar|Caja|nautilus|Nautilus"]                                 → 8
+assign [class="obsidian|Obsidian"]                                 → 7
 
-# Workspace 6 email clients
 
 # Workspace 10 music related
 #fix for spotify not moving to workspace 10
@@ -399,7 +396,6 @@ assign [class="Firefox|Vivaldi-stable|Vivaldi-snapshot|Opera"]                  
 # USER APPLICATIONS TO START AT BOOT
 
 # ArcoLinux Welcome App
-exec --no-startup-id dex $HOME/.config/autostart/arcolinux-welcome-app.desktop
 
 #browser
 exec --no-startup-id firefox 
@@ -415,10 +411,10 @@ exec --no-startup-id firefox
 #Mail clients
 exec --no-startup-id thunderbird 
 
+exec --no-startup-id obsidian
 #Music
-exec --no-startup-id spotify
-for_window [class="Spotify"] focus
-
+#exec --no-startup-id spotify
+for_window [class="obsidian"] focus
 
 
 # TRAY APPLICATIONS
@@ -427,11 +423,10 @@ for_window [class="Spotify"] focus
 # you may see a wheel - hashtag out things you do not want
 
 #Authentication dialog
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 # Updater
-exec --no-startup-id pamac-tray
-
+#exec --no-startup-id pamac-tray
 # bluetooth
 #exec --no-startup-id blueberry-tray
 
@@ -441,7 +436,8 @@ exec --no-startup-id nm-applet
 # protonmail bridge
 exec --no-startup-id protonmail-bridge --no-window
 
-
+exec --no-startup-id flameshot
+exec --no-startup-id blueman-applet
 
 # num lock activated
 exec_always --no-startup-id numlockx on
@@ -873,7 +869,6 @@ exec_always --no-startup-id picom --config ~/.config/i3/picom.conf
 #####################################################################################################################
 
 bar {
-
     height 25
     workspace_buttons yes
     font pango:Noto Sans 14
@@ -881,56 +876,10 @@ bar {
     #position top
     position bottom
 
-    #system icons
     #tray_output none
-    #tray_output $firstMonitor
-    #tray_output $secondMonitor
-
-
-
-    # OPTION 1 : i3status
-
-    # type status_command i3status without the config file and
-    # you will get the standard i3status bar
-    # Second one is the standard statusbar with my personal settings
-
-    #status_command i3status
+    tray_output $firstMonitor
     status_command i3status -c ~/.config/i3status/config
 
-
-
-    # OPTION 2 : i3blocks
-
-    # https://github.com/vivien/i3blocks
-    # another way to provide text in the statusbar
-    # put hastag in front if not installed
-
-    #status_command i3blocks
-    #status_command i3blocks -c ~/.config/i3/i3blocks.conf
-    #status_command i3blocks -c ~/.config/i3/i3blocks-rainbow.conf
-    #status_command i3blocks -c ~/.config/i3/i3blocks-original.conf
-    #status_command i3blocks -c ~/.config/i3/i3blocks-awesome.conf
-
-
-    # OPTION 3 : conky
-
-    # You can also replace the istatus bar with a conky
-    # start-conky-i3statusbar.sh is started and conky will follow
-    # documentation : https://i3wm.org/docs/user-contributed/conky-i3bar.html
-    # conky configuration is in conky-i3statusbar
-
-    #status_command ~/.config/i3/start-conky-i3statusbar.sh
-
-
-
-    # OPTION 4 : polybar
-
-    # polybar is launched elsewhere - search for the word
-    # from the opening of the "bar {...}" till the end has to go or hashtagged out
-    # in order for the system trayicons to show up in polybar
-
-
-    ##START THEMING
     #Theme name : ArcoLinux Default
 
     colors {
@@ -944,9 +893,9 @@ bar {
         urgent_workspace      #a9a9a9 #d42121 #FFFFFF
         }
 
-    }
+}
 
-
+        #                     border  backgr. text
         # DarkGrey background with white text - not focus grey background - black text
         # Windows decoration colors
         # class                 border  backgr. text    indicator
@@ -999,16 +948,17 @@ bar {
 # bindsym --release button2 kill
 
 # The middle button and a modifer over any part of the window kills the window
-# bindsym --whole-window $mod+button2 kill
+#bindsym --whole-window $mod+button2 kill
 
 # The right button toggles floating
 # bindsym button3 floating toggle
 # bindsym $mod+button3 floating toggle
 
 # The side buttons move the window around
-# bindsym button9 move left
-# bindsym button8 move right
-
+# bindsym --whole-window $mod+button1  
+bindsym $mod+g exec xdotool key --clearmodifiers Print
+bindsym $mod+d exec gromit-mpx 
+bindsym --whole-window button8 exec xdotool key 75 
 
 #####################################################################################################################
 #################                          keyboard control                                         #################
