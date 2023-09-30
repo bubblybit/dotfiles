@@ -60,6 +60,9 @@ set $right l
 #####################################################################################################################
 
 
+set $firstMonitor DP-2-1 
+set $secondMonitor eDP-1
+
 # setting variables for later use
 # use xrandr and/or arandr to know the names of your monitors
 # use this line to tell which monitor is on the right
@@ -68,8 +71,9 @@ set $right l
 #exec --no-startup-id xrandr --output DVI-I-0 --right-of HDMI-0 --auto
 #exec --no-startup-id xrandr --output DVI-1 --right-of DVI-0 --auto
 #exec --no-startup-id xrandr --output DVI-D-1 --right-of DVI-I-1 --auto
-exec --no-startup-id xrandr --output eDP-1 --output HDMI-2 --left-of eDP-1 
-
+#exec --no-startup-id xrandr --output eDP-1 --output DP-2 --left-of eDP-1 
+exec --no-startup-id xrandr --output eDP-1 --auto --primary 
+exec --no-startup-id xrandr --output DP-2-1 --auto --right-of eDP-1 
 
 # my current setup
 
@@ -86,9 +90,22 @@ exec --no-startup-id xrandr --output eDP-1 --output HDMI-2 --left-of eDP-1
 #set $firstMonitor DVI-I-1
 #set $secondMonitor DVI-D-1
 
-set $firstMonitor eDP-1 
-set $secondMonitor HDMI-2
 
+
+set $tag1 "1 "
+set $tag2 "2 "
+set $tag3 "3 "
+set $tag4 "4 "
+set $tag5 "5 "
+set $tag6 "6 "
+#set $tag6 "6 "
+set $tag7 "7 "
+set $tag8 "8 "
+set $tag9 "9 "
+set $tag0 "0 "
+
+#workspace $tag1 output $firstMonitor
+#workspace $tag2 output $firstMonitor
 workspace 1 output $firstMonitor
 workspace 2 output $firstMonitor
 workspace 3 output $firstMonitor
@@ -99,33 +116,35 @@ workspace 7 output $secondMonitor
 workspace 8 output $secondMonitor
 workspace 9 output $secondMonitor
 workspace 10 output $secondMonitor
-
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace $tag1 
+bindsym $mod+2 workspace $tag2 
+bindsym $mod+3 workspace $tag3 
+bindsym $mod+4 workspace $tag4 
+bindsym $mod+5 workspace $tag5
+bindsym $mod+6 workspace $tag6 
+bindsym $mod+7 workspace $tag7
+bindsym $mod+8 workspace $tag8
+bindsym $mod+9 workspace $tag9
+bindsym $mod+0 workspace $tag0
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1; workspace 1
-bindsym $mod+Shift+2 move container to workspace 2; workspace 2
-bindsym $mod+Shift+3 move container to workspace 3; workspace 3
-bindsym $mod+Shift+4 move container to workspace 4; workspace 4
-bindsym $mod+Shift+5 move container to workspace 5; workspace 5
-bindsym $mod+Shift+6 move container to workspace 6; workspace 6
-bindsym $mod+Shift+7 move container to workspace 7; workspace 7
-bindsym $mod+Shift+8 move container to workspace 8; workspace 8
-bindsym $mod+Shift+9 move container to workspace 9; workspace 9
-bindsym $mod+Shift+0 move container to workspace 10; workspace 10
+bindsym $mod+Shift+1 move container to workspace $tag1
+bindsym $mod+Shift+2 move container to workspace $tag2 
+bindsym $mod+Shift+3 move container to workspace $tag3  
+bindsym $mod+Shift+4 move container to workspace $tag4 
+bindsym $mod+Shift+5 move container to workspace $tag5 
+bindsym $mod+Shift+6 move container to workspace $tag6 
+bindsym $mod+Shift+7 move container to workspace $tag7 
+bindsym $mod+Shift+8 move container to workspace $tag8 
+bindsym $mod+Shift+9 move container to workspace $tag9 
+bindsym $mod+Shift+0 move container to workspace $tag0 
 
-
-
+assign [class="firefox"] $tag2
+assign [class="vlc"] $tag6
+#assign [class="Alacritty"] $tag3
+assign [class="thunderbird"] $tag1
+assign [class="obsidian"] $tag0
 #####################################################################################################################
 #################                          3 menu's in arcolinux                                     #################
 #####################################################################################################################
@@ -373,13 +392,7 @@ font pango:Noto Mono Regular 13
 #assign [class="Meld"]                                                               → 5
 
 # Workspace 6 all video related software
-assign [class="Thunderbird|thunderbird"]                                                    → 6
-
 # Workspace 7 virtual machines and settings
-assign [class="obsidian|Obsidian"]                      → 7
-
-# Workspace 8 file managers
-assign [class="obsidian|Obsidian"]                                 → 7
 
 
 # Workspace 10 music related
@@ -414,7 +427,6 @@ exec --no-startup-id thunderbird
 exec --no-startup-id obsidian
 #Music
 #exec --no-startup-id spotify
-for_window [class="obsidian"] focus
 
 
 # TRAY APPLICATIONS
